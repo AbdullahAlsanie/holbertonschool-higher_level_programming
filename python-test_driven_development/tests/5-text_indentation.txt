@@ -3,21 +3,21 @@
 # Basic text with punctuation
 >>> text_indentation("Hello. How are you? Fine: yes.")
 Hello.
-
+<BLANKLINE>
 How are you?
-
+<BLANKLINE>
 Fine:
-
+<BLANKLINE>
 yes.
 
 # Text with extra spaces around punctuation
 >>> text_indentation("Hello .   What?   Ok: fine.")
-Hello.
-
+Hello .
+<BLANKLINE>
 What?
-
+<BLANKLINE>
 Ok:
-
+<BLANKLINE>
 fine.
 
 # No punctuation (prints as is)
