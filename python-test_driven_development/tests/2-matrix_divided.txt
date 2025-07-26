@@ -12,6 +12,22 @@
 >>> matrix_divided([[10, 20, 30]], 10)
 [[1.0, 2.0, 3.0]]
 
+# matrix= list of lists of integers / div= float(inf) => all values == 0.0
+>>> matrix_divided([[1, 2], [3, 4]], float('inf'))
+[[0.0, 0.0], [0.0, 0.0]]
+
+# Missing one argument
+>>> matrix_divided([[1, 2], [3, 4]])
+Traceback (most recent call last):
+...
+TypeError: matrix_divided() missing 1 required positional argument: 'div'
+
+# Missing two arguments
+>>> matrix_divided()
+Traceback (most recent call last):
+...
+TypeError: matrix_divided() missing 2 required positional arguments: 'matrix' and 'div'
+
 # Invalid matrix: not a list
 >>> matrix_divided("hello", 2)
 Traceback (most recent call last):
