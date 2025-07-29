@@ -15,6 +15,8 @@ class Square:
         if size < 0:
             raise ValueError("size must be >= 0")
         self.__size = size
+        self.__validate_position(position)
+        self.__position = position
 
     @property
     def size(self):
@@ -35,12 +37,11 @@ class Square:
         """retrieve position"""
         return (self.__position)
 
-    @postition.setter
+    @position.setter
     def position(self, position):
         """set position"""
         self.__validate_position(position)
         self.__position = position
-        return (self.position)
 
     def area(self):
         """ this method returns a the area of the square"""
