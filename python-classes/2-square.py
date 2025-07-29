@@ -4,7 +4,7 @@ This module contains a square class
 """
 
 
-class Squre:
+class Square:
     """
     This Class represents a square
     """
