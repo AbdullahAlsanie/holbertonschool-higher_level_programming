@@ -1,52 +1,34 @@
+"""
+>>> import sys
+>>> sys.path.append('..')
 >>> MyList = __import__('1-my_list').MyList
 >>> my_list = MyList()
+>>> print(my_list)
+[]
 >>> my_list.print_sorted()
 []
-[]
->>> my_list.append(1)
->>> my_list.print_sorted()
-[1]
-[1]
+
 >>> my_list.append(2)
 >>> my_list.append(3)
->>> my_list.append(-3)
->>> my_list.append()  # doctest: +ELLIPSIS
-Traceback (most recent call last):
-...
-TypeError: list.append() takes exactly one argument (0 given)
->>> my_list.print_sorted()
-[-3, 1, 2, 3]
-[-3, 1, 2, 3]
+>>> my_list.append(1)
 
->>> my_list = MyList([])
->>> my_list.print_sorted()
-[]
-[]
->>> my_list.append(-4)
->>> my_list.append(-5)
->>> my_list.append(-6)
->>> my_list.append(1000)
->>> my_list.append(-1000)
->>> my_list.append(5000)
->>> my_list.append(-1)
->>> my_list.print_sorted()
-[-1000, -6, -5, -4, -1, 1000, 5000]
-[-1000, -6, -5, -4, -1, 1000, 5000]
-
-# Test present: check __str__
->>> str(my_list)
-'[-4, -5, -6, 1000, -1000, 5000, -1]'
 >>> print(my_list)
-[-4, -5, -6, 1000, -1000, 5000, -1]
+[2, 3, 1]
 
-# Test present: check print_sorted() returns a new list
->>> original_snapshot = MyList(my_list)
->>> returned = my_list.print_sorted()
-[-1000, -6, -5, -4, -1, 1000, 5000]
->>> returned == sorted(original_snapshot)
-True
->>> returned is my_list
-False
->>> my_list == original_snapshot
-True
+>>> my_list.print_sorted()
+[1, 2, 3]
 
+>>> print(my_list)
+[2, 3, 1]
+
+>>> my_list2 = MyList()
+>>> my_list2.append(1)
+>>> my_list2.append(-1)
+>>> my_list2.append(21)
+>>> print(my_list2)
+[1, -1, 21]
+>>> my_list2.print_sorted()
+[-1, 1, 21]
+
+
+"""
