@@ -10,7 +10,7 @@ class BaseGeometry:
 
     def integer_validator(self, name, value):
         """validates value for integer and positive"""
-        if type(value) is not int:
+        if type(value) != int:
             raise TypeError("{} must be an integer".format(name))
         if value <= 0:
             raise ValueError("{} must be greater than 0".format(name))
@@ -35,3 +35,20 @@ class Rectangle(BaseGeometry):
     def __str__(self):
         """returns string"""
         return "[Rectangle] {}/{}".format(self.__width, self.__height)
+
+
+"""class square"""
+
+
+class Square(Rectangle):
+    """creates square"""
+
+    def __init__(self, size):
+        """initializes rectangle"""
+        self.integer_validator("size", size)
+        self.__size = size
+        super().__init__(size, size)
+
+    def __str__(self):
+        """returns string of square"""
+        return "[Square] {}/{}".format(self.__size, self.__size)
