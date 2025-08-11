@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""loads adds saves json to file"""
+"""adds all arguments to a Python list, and then saves them to a file"""
+
 import json
 import sys
 save_to_json_file = __import__('5-save_to_json_file').save_to_json_file
@@ -7,8 +8,10 @@ load_from_json_file = __import__('6-load_from_json_file').load_from_json_file
 
 try:
     jsonList = load_from_json_file("add_item.json")
-except jsonList = []
+except FileNotFoundError:
+    jsonList = []
 
-for i in sys.argv[1:]:
-    jsonList.append(i)
+for arg in sys.argv[1:]:
+    jsonList.append(arg)
+
 save_to_json_file(jsonList, "add_item.json")
