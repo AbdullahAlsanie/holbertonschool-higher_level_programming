@@ -1,0 +1,10 @@
+#!/usr/bin/python3
+"""
+ fetch posts from JSONPlaceholder
+"""
+
+
+import requests 
+
+fetch_and_print_posts()
+	
