@@ -34,3 +34,8 @@ class SimpleHandler(BaseHTTPRequestHandler):
             self.send_header("Content-type", "text/plain")
             self.end_headers()
             self.wfile.write(b"Endpoint not found")
+
+if __name__ == "__main__":
+    server = HTTPServer(("localhost", 8000), SimpleHandler)
+    print("Server running on http://localhost:8000")
+    server.serve_forever()
