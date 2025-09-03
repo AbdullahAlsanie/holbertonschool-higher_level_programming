@@ -1,8 +1,10 @@
--- genre id by show
-SELECT tgg.name FROM tv_genres AS tgg
-JOIN tv_show_genres AS tgs
-ON tgs.genre_id = tgg.id
-JOIN tv_shows AS ts
-ON ts.id = tgs.show_id
-WHERE ts.title='Dexter'
-GROUP BY tgg.name ASC;
+-- this is sub querry using forign key
+SELECT 
+    tv_genres.name
+FROM tv_shows
+JOIN tv_show_genres 
+    ON tv_shows.id = tv_show_genres.show_id
+JOIN tv_genres 
+    ON tv_genres.id = tv_show_genres.genre_id
+WHERE tv_shows.title = 'Dexter'
+ORDER BY tv_genres.name ASC;
