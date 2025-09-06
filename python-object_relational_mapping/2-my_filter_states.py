@@ -1,41 +1,25 @@
 #!/usr/bin/python3
 """
-Lists all states from the database hbtn_0e_0_usa sorted by id.
-Usage: ./0-select_states.py <mysql username> <mysql password> <database name>
+Takes in an argument and displays all values in the states table
+where name matches the argument - VULNERABLE to SQL injection
 """
 import sys
 import MySQLdb
 
 
-def list_all_states():
-    """
-    Lists all states from the database hbtn_0e_0_usa sorted by id.
-    Usage: ./0-select_states.py <mysql username> <mysql password>
-    <database name>
-    """
-    try:
-        user1 = sys.argv[1]
-        pass1 = sys.argv[2]
-        db1 = sys.argv[3]
-        match = sys.argv[4]
-        database = None
-        c = None
-        database = MySQLdb.connect(
-            port=3306, host="localhost", user=user1, passwd=pass1, db=db1
-        )
-        c = database.cursor()
-        query = "SELECT * FROM states WHERE name LIKE BINARY %s\
-                ORDER BY states.id ASC"
-        c.execute(query,(match,))
-        [print(state) for state in c.fetchall()]
-    except MySQLdb.Error as e:
-        print(f"Error connecting to databse, {e}")
-    finally:
-        if c:
-            c.close()
-        if database:
-            database.close()
-
-
 if __name__ == "__main__":
-    list_all_states()
+    db = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=sys.argv[1],
+        passwd=sys.argv[2],
+        db=sys.argv[3]
+    )
+    cursor = db.cursor()
+    # Using format() makes this vulnerable to SQL injection
+    query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(sys.argv[4])
+    cursor.execute(query)
+    for row in cursor.fetchall():
+        print(row)
+    cursor.close()
+    db.close()
