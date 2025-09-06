@@ -1,36 +1,23 @@
 #!/usr/bin/python3
-"""
-Lists all states from the database hbtn_0e_0_usa
-in ascending order by states.id.
-"""
-
-import MySQLdb
-import sys
+# gets all states via python yee boi
 
 
-def main():
-    """Connects to MySQL and lists all states sorted by id."""
-    user, pwd, dbname = sys.argv[1], sys.argv[2], sys.argv[3]
-
-    # Connect to MySQL server
-    db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=user,
-        passwd=pwd,
-        db=dbname,
-        charset="utf8"
-    )
-
-    cursor = db.cursor()
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
-
-    for row in cursor.fetchall():
-        print(row)
-
-    cursor.close()
-    db.close()
+def main(args):
+    # gets all state stuff
+    if len(args) != 4:
+        raise Exception("need 3 arguments!")
+    db = MySQLdb.connect(host='localhost',
+                         user=args[1],
+                         passwd=args[2],
+                         db=args[3])
+    cur = db.cursor()
+    cur.execute("SELECT * FROM states ORDER BY id ASC")
+    states = cur.fetchall()
+    for state in states:
+        print(state)
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    import MySQLdb
+    main(sys.argv)
