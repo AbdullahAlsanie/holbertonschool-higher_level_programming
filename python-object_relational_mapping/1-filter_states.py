@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
-Lists all states with a name starting with N from the database hbtn_0e_0_usa
+Script that lists all states with a name starting with N (upper N)
+from the database hbtn_0e_0_usa sorted in ascending order by states.id
 """
 import sys
 import MySQLdb
 
 
 if __name__ == "__main__":
-    # Connect to MySQL database
     db = MySQLdb.connect(
         host="localhost",
         port=3306,
