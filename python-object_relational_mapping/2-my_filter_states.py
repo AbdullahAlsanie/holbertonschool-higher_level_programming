@@ -1,16 +1,17 @@
 #!/usr/bin/python3
 """
-Takes in an argument and displays all values in the states table where name matches the argument
-Usage: ./2-my_filter_states.py <mysql username> <mysql password> <database name> <state name>
+Lists all states from the database hbtn_0e_0_usa sorted by id.
+Usage: ./0-select_states.py <mysql username> <mysql password> <database name>
 """
 import sys
 import MySQLdb
 
 
-def filter_states():
+def list_all_states():
     """
-    Takes in an argument and displays all values in the states table where name matches the argument
-    Usage: ./2-my_filter_states.py <mysql username> <mysql password> <database name> <state name>
+    Lists all states from the database hbtn_0e_0_usa sorted by id.
+    Usage: ./0-select_states.py <mysql username> <mysql password>
+    <database name>
     """
     try:
         user1 = sys.argv[1]
@@ -23,13 +24,12 @@ def filter_states():
             port=3306, host="localhost", user=user1, passwd=pass1, db=db1
         )
         c = database.cursor()
-        # Using format() makes this vulnerable to SQL injection as required
-        query = "SELECT * FROM states WHERE name = '{}' " \
-                "ORDER BY states.id ASC".format(match)
-        c.execute(query)
+        query = "SELECT * FROM states WHERE name LIKE BINARY %s\
+                ORDER BY states.id ASC"
+        c.execute(query,(match,))
         [print(state) for state in c.fetchall()]
     except MySQLdb.Error as e:
-        print(f"Error connecting to database, {e}")
+        print(f"Error connecting to databse, {e}")
     finally:
         if c:
             c.close()
@@ -38,4 +38,4 @@ def filter_states():
 
 
 if __name__ == "__main__":
-    filter_states()
+    list_all_states()
