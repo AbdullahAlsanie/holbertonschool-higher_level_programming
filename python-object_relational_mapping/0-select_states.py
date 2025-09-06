@@ -1,23 +1,36 @@
 #!/usr/bin/python3
-# gets all states via python yee boi
+"""
+Lists all states from the database hbtn_0e_0_usa sorted by id.
+Usage: ./0-select_states.py <mysql username> <mysql password> <database name>
+"""
+import sys
+import MySQLdb
 
 
-def main(args):
-    # gets all state stuff
-    if len(args) != 4:
-        raise Exception("need 3 arguments!")
-    db = MySQLdb.connect(host='localhost',
-                         user=args[1],
-                         passwd=args[2],
-                         db=args[3])
-    cur = db.cursor()
-    cur.execute("SELECT * FROM states ORDER BY id ASC")
-    states = cur.fetchall()
-    for state in states:
-        print(state)
+def list_all_states():
+    """
+    Lists all states from the database hbtn_0e_0_usa sorted by id.
+    Usage: ./0-select_states.py <mysql username> <mysql password>
+    <database name>
+    """
+    try:
+        user1 = sys.argv[1]
+        pass1 = sys.argv[2]
+        db1 = sys.argv[3]
+        database = MySQLdb.connect(
+            port=3306, host="localhost", user=user1, passwd=pass1, db=db1
+        )
+        c = database.cursor()
+        c.execute("SELECT * FROM states ORDER BY states.id ASC")
+        [print(state) for state in c.fetchall()]
+    except MySQLdb.Error as e:
+        print(f"Error connecting to databse, {e}")
+    finally:
+        if c:
+            c.close()
+        if database:
+            database.close()
 
 
 if __name__ == "__main__":
-    import sys
-    import MySQLdb
-    main(sys.argv)
+    list_all_states()
