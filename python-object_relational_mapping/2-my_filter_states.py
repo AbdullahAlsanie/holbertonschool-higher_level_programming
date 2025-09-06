@@ -1,41 +1,28 @@
 #!/usr/bin/python3
 """
-Lists all states from the database hbtn_0e_0_usa sorted by id.
-Usage: ./0-select_states.py <mysql username> <mysql password> <database name>
+Displays all values in states where name matches the argument (unsafe).
 """
+
 import sys
 import MySQLdb
 
 
-def list_all_states():
-    """
-    Lists all states from the database hbtn_0e_0_usa sorted by id.
-    Usage: ./0-select_states.py <mysql username> <mysql password>
-    <database name>
-    """
-    try:
-        user1 = sys.argv[1]
-        pass1 = sys.argv[2]
-        db1 = sys.argv[3]
-        match = sys.argv[4]
-        database = None
-        c = None
-        database = MySQLdb.connect(
-            port=3306, host="localhost", user=user1, passwd=pass1, db=db1
-        )
-        c = database.cursor()
-        query = "SELECT * FROM states WHERE name LIKE BINARY %s\
-                ORDER BY states.id ASC"
-        c.execute(query,(match,))
-        [print(state) for state in c.fetchall()]
-    except MySQLdb.Error as e:
-        print(f"Error connecting to databse, {e}")
-    finally:
-        if c:
-            c.close()
-        if database:
-            database.close()
+def main():
+    """Connects and fetches states where name matches the given argument."""
+    username, password, database, state_name = (
+        sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+    )
+    db = MySQLdb.connect(host="localhost", port=3306, user=username,
+                         passwd=password, db=database, charset="utf8")
+    cur = db.cursor()
+    query = ("SELECT * FROM states WHERE BINARY name = '{}' "
+             "ORDER BY id ASC;").format(state_name)
+    cur.execute(query)
+    for row in cur.fetchall():
+        print(row)
+    cur.close()
+    db.close()
 
 
 if __name__ == "__main__":
-    list_all_states()
+    main()
