@@ -1,8 +1,15 @@
 #!/usr/bin/node
-let num1 = isNaN(Number(process.argv[2])) ? 1 : Number(process.argv[2]);
-function fact (a) {
-  if (a === 0) return 1;
-  return a * fact(a - 1);
+const { argv } = require('process');
+
+if (!argv[2]) {
+  console.log(1);
+}
+function recursiveFactorial (num) {
+  if (num === 1) {
+    return num;
+  }
+  return num * recursiveFactorial(num - 1);
 }
 
-console.log(fact(num1));
+const number = recursiveFactorial(Number(argv[2]));
+console.log(number);
